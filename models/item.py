@@ -1,17 +1,20 @@
-from typing import Dict
+from typing import Dict, List   #this is the type hinting for the database.
 import re
 import requests
 import uuid
 from bs4 import BeautifulSoup
 from common.database import Database
+from models.model import Model
 
-class Item:
+class Item(Model):
+    super().__init__()
+    collection = "items" 
     def __init__(self,url:str,tag_name:str,query:Dict,_id:str =None):
         self.url=url
         self.tag_name= tag_name
         self.query = query
         self.price=None
-        self.collection = "items" #sets the collecton of every Item object to the collection called "item" in the pricing database.
+        #sets the collecton of every Item object to the collection called "item" in the pricing database.
         self._id =_id or uuid.uuid4().hex
 
 
@@ -45,4 +48,9 @@ class Item:
         Database.insert(self.collection,self.json())
 
 
-
+   
+    
+    @classmethod
+    def get_by_id(cls, _id:str):
+        item_json = Database.find_one("items",{"_id":_id})
+        return cls(**item_json) 
