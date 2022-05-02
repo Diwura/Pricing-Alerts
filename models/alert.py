@@ -5,7 +5,7 @@ from common.database import Database
 from models.model import Model
 
 class Alert(Model):
-    super.__init__()
+    super().__init__()
     collection = "alerts"
     def __init__(self,item_id:str, price_limit:float, _id:str=None):
             self.item_id = item_id
