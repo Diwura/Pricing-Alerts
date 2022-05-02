@@ -1,4 +1,3 @@
-from sys import float_repr_style
 from typing import Dict, List   #this is the type hinting
 from models.item import Item 
 import uuid
