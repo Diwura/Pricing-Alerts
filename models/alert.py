@@ -1,7 +1,6 @@
-from typing import Dict, List   #this is the type hinting
+from typing import List,Dict
 from models.item import Item 
 import uuid
-from common.database import Database
 from models.model import Model
 
 class Alert(Model):
@@ -17,11 +16,7 @@ class Alert(Model):
         return {
             "_id":self._id,
             "price_limit":self.price_limit,
-            "item_id":self.item_id
-        }
-
-    def save_to_mongo(self):
-        Database.insert(self.collection, self.json())
+            "item_id":self.item_id }
 
 
     def load_item_price(self) -> float:

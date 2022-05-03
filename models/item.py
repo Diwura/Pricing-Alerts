@@ -1,9 +1,8 @@
-from typing import Dict, List   #this is the type hinting for the database.
+from typing import Dict   #this is the type hinting for the database.
 import re
 import requests
 import uuid
 from bs4 import BeautifulSoup
-from common.database import Database
 from models.model import Model
 
 class Item(Model):
@@ -44,13 +43,4 @@ class Item(Model):
         }
 
 
-    def save_to_mongo(self):
-        Database.insert(self.collection,self.json())
-
-
-   
-    
-    @classmethod
-    def get_by_id(cls, _id:str):
-        item_json = Database.find_one("items",{"_id":_id})
-        return cls(**item_json) 
+  
