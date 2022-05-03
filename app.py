@@ -1,16 +1,26 @@
+import json
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from models.item import Item
+
 
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def new_item():
+    if request.method == 'POST':
+        url = request.form['url']
+        tag_name = request.form['tag_name']
+        query = json.loads(request.form['query'])
+
+        Item(url,tag_name,query).save_to_mongo()
     return render_template('new_item.html')
 
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5050, debug=True)
+
 # from models.item  import Item
 
 #url = "https://www.johnlewis.com/apple-iphone-11-ios-6-1-inch-4g-lte-sim-free-64gb/p4519032"

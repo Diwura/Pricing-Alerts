@@ -6,9 +6,10 @@ from bs4 import BeautifulSoup
 from models.model import Model
 
 class Item(Model):
-    super().__init__()
+   
     collection = "items" 
     def __init__(self,url:str,tag_name:str,query:Dict,_id:str =None):
+        super().__init__()
         self.url=url
         self.tag_name= tag_name
         self.query = query

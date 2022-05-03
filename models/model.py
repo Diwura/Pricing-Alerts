@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List, Dict, TypeVar, Type #this helps us to define custom types
 from common.database import Database
-from models.item import Item
+#from models.item import Item
 
 T = TypeVar('T', bound='Model') #this is a generic type that can be any class that inherits from Model
 
