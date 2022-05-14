@@ -16,7 +16,7 @@ class Model(metaclass=ABCMeta):
         raise NotImplementedError
 
     def save_to_mongo(self):
-        Database.update(self.collection,{"_id:self._id"}, self.json())#updates the value assinged to _id
+        Database.update(self.collection,{"_id":self._id}, self.json())#updates the value assinged to _id
 
     def remove_from_mongo(self):
         Database.remove(self.collection,{"_id":self._id})
