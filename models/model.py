@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import List, Dict, TypeVar, Type #this helps us to define custom types
+from typing import List, Dict, Union, TypeVar, Type #this helps us to define custom types
 from common.database import Database
 #from models.item import Item
 
@@ -36,10 +36,10 @@ class Model(metaclass=ABCMeta):
 
         
     @classmethod
-    def find_one_by(cls: Type[T],attribute: str,value: str) -> T: #item.find_one_by('url', 'https://abc.com)
+    def find_one_by(cls: Type[T],attribute: str,value: Union[str,Dict]) -> T: #item.find_one_by('url', 'https://abc.com)
         return cls(**Database.find_one(cls.collection,{attribute:value}))
 
     @classmethod
-    def find_many_by(cls: Type[T],attribute:str, value:str) -> List[T]:
+    def find_many_by(cls: Type[T],attribute:str, value: Union[str, Dict]) -> List[T]:
         return [cls(**elem) for elem in Database.find(cls.collection, {attribute:value})]
  
