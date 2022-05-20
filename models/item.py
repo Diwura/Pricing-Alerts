@@ -22,7 +22,7 @@ class Item(Model):
     def load_price(self) -> float: 
         response=requests.get(self.url)
         content=response.content
-        soup = BeautifulSoup(content, "html.parser")
+        soup = BeautifulSoup(content, "html5")
         element = soup.find(self.tag_name, self.query) 
         string_price = element.text.strip()
 
