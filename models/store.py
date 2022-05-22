@@ -1,10 +1,16 @@
 import uuid
 from typing import Dict
 import re
+from dataclasses import dataclass,field
 from models.model import Model
-
+@dataclass(eq=False)
 class Store(Model):
-    collection ="stores"
+    collection: str = field(init=False, default="stores")
+    name:str
+    url_prefix: str
+    tag_name :str
+    query: Dict
+    _id: str = field(default_factory=lambda: uuid.uuid4().hex)
 
     def __init__(self, name: str, url_prefix: str, tag_name: str, query: Dict, _id: str = None):
         super().__init__()
