@@ -1,11 +1,11 @@
 import email
 import uuid
-from dataclasses import datacalss, dataclass, field
+from dataclasses import dataclass, dataclass, field
 from typing import Dict, List, Type
 
 from models.model import Model
 from common.utils import Utils
-from models.user.errors import UserErrors
+import models.user.errors as UserErrors # importing the class and subclasses defined in the errors module into an object.
 
 @dataclass
 class User(Model):
@@ -22,16 +22,25 @@ class User(Model):
             raise UserErrors.UserNotFoundError('A user with this e-mail was not found.')
 
     @classmethod
+    def is_login_valid(cls,email:str, password:str) -> bool:
+        user=cls.find_by_email(email)
+
+        if not Utils.check_hashed_password(password, user.password):
+            raise UserErrors.IncorrectPasswordError('Your Password was incorrect')
+
+        return True
+
+    @classmethod
     def register_user(cls, email:str, password: str) -> bool:
         if not Utils.email_is_valid(email):
-            raise UserErrors.InvalidEmailError('The e-mail does not have the righ format')
+            raise UserErrors.InvalidEmailError('The e-mail does not have the right format')
 
 
         try:
             cls.find_by_email(email)
             raise UserErrors.UserAlreadyRegisteredError('The e-mail you used to register already exists')
         except UserErrors.UserNotFoundError:
-            User(email, password).save_to_mongo()
+            User(email, Utils.hash_password(password)).save_to_mongo()
 
         return True
     
