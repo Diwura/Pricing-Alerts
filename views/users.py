@@ -2,6 +2,7 @@ from crypt import methods
 import email
 from flask import Blueprint, request, session, url_for, render_template, redirect
 from models.user import User,UserErrors
+from models.user import requires_admin
 
 
 user_blueprint = Blueprint('users', __name__)

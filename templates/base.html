@@ -10,12 +10,25 @@
 </head>
 <body>
     <div class="content container mt-2">
-        <nav class="navbar navbar-expand navbar-light bg-light mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+                <a href="/" class="navbar-brand">Pricing Service</a>
+                <button class="navbar-toggler" type="button" data-toggler="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
 
-        </nav>
+                <div id="navbarNavAltMarkup" class="collapse navbar-collapse">
+                    <div class="navbar-nav">
+                           <a href="{{ url_for('stores.index') }}" class="nav-item nav-link">Stores</a> 
+                           <a href="{{ url_for('alerts.index') }}" class="nav-item nav-link">Alerts</a> 
+                           <a href="{{ url_for('users.login_user') }}" class="nav-item nav-link">Log In</a> 
+                           <a href="{{ url_for('users.register_user') }}" class="nav-item nav-link">Sign up</a> 
+                    </div>
+                </div>
+            </nav>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                {% for message, category in messages %}
+                {% for category, message in messages %}
                     <div class="alert alert-{{category}}" role="alert">
                         {{ message }}
                     </div>
@@ -23,11 +36,15 @@
 
             {% endif %}
          {% endwith %}
-
+         <div class="t-3">
 
         {% block content %}
         
         {% endblock %}
+
+         </div>
+
+        
 
     </div>
 
